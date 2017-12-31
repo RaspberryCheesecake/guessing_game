@@ -4,6 +4,20 @@ use std::io;
 use rand::Rng;
 use std::cmp::Ordering;
 
+fn random_comparison_win(guess: u32) -> std::string::String {
+	println!("You guessed: {}", guess);
+
+	let secret_number = rand::thread_rng().gen_range(1, 101);
+	println!("The secret number is {}", secret_number);
+	
+	match guess.cmp(&secret_number) {
+	// returns an answer string based on comparison with guess
+	Ordering::Less =>	{String::from("Too small!")},
+	Ordering::Equal =>	{String::from("You win!")},
+	Ordering::Greater =>	{String::from("Too big!")},
+	}
+}
+
 fn main() {
 	let secret_number = rand::thread_rng().gen_range(1, 101);
 	println!("Guess the number between 1 and 100!");
@@ -18,12 +32,6 @@ fn main() {
 		.expect("Please type an integer number only!");
 	// coerce to unsigned 32 bit integer, if you can
 	
-	println!("You guessed: {}", guess_int);
-	println!("The secret number is {}", secret_number);
-	
-	match guess_int.cmp(&secret_number) {
-	Ordering::Less =>	println!("Too small!"),
-	Ordering::Equal =>	println!("You win!"),
-	Ordering::Greater =>	println!("Too big!"),	
-	}
+	let result = random_comparison_win(guess_int);
+	println!("{}", result);
 }
