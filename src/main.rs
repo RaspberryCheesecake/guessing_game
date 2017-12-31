@@ -34,3 +34,23 @@ fn main() {
 	let result = random_comparison_win(guess_int, secret_number);
 	println!("{}", result);
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_when_numbers_same_returns_yay() {
+	use super::*;  // to allow use to use non pub fn declared in this file
+	
+	let num: u32 = rand::thread_rng().gen_range(1, 101);
+	let result = random_comparison_win(num, num);
+    	assert_eq!(result, String::from("You win!"));
+    }
+    #[test]
+    fn test_when_numbers_differ_you_do_not_win() {
+	use super::*;
+	let num: u32 = rand::thread_rng().gen_range(1, 101);
+	let other_num = num + 1;
+	let result = random_comparison_win(num, other_num);
+	assert_ne!(result, String::from("You win!"));
+    }
+}
