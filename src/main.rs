@@ -4,7 +4,7 @@ use std::io;
 use rand::Rng;
 use std::cmp::Ordering;
 
-
+const YAY: &'static str = "You win!";
 
 fn random_comparison_win(guess: u32, secret: u32) -> &'static str {
 	println!("You guessed: {}", guess);
@@ -13,7 +13,7 @@ fn random_comparison_win(guess: u32, secret: u32) -> &'static str {
 	match guess.cmp(&secret) {
 	// returns an answer string based on comparison with guess
 	Ordering::Less =>	{"Too small!"},
-	Ordering::Equal =>	{"You win!"},
+	Ordering::Equal =>	{YAY},
 	Ordering::Greater =>	{"Too big!"},
 	}
 }
@@ -38,7 +38,7 @@ fn main() {
 		let result = random_comparison_win(guess_int, secret_number);
 		println!("{}", result);
 
-		if result == "You win!" {
+		if result == YAY {
 		break;		
 		}
 	}
@@ -52,7 +52,7 @@ mod tests {
 	
 	let num: u32 = rand::thread_rng().gen_range(1, 101);
 	let result = random_comparison_win(num, num);
-    	assert_eq!(result, String::from("You win!"));
+    	assert_eq!(result, YAY);
     }
     #[test]
     fn test_when_numbers_differ_you_do_not_win() {
@@ -60,6 +60,6 @@ mod tests {
 	let num: u32 = rand::thread_rng().gen_range(1, 101);
 	let other_num = num + 1;
 	let result = random_comparison_win(num, other_num);
-	assert_ne!(result, String::from("You win!"));
+	assert_ne!(result, YAY);
     }
 }
