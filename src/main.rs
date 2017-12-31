@@ -4,15 +4,17 @@ use std::io;
 use rand::Rng;
 use std::cmp::Ordering;
 
-fn random_comparison_win(guess: u32, secret: u32) -> std::string::String {
+
+
+fn random_comparison_win(guess: u32, secret: u32) -> &'static str {
 	println!("You guessed: {}", guess);
 	println!("The secret number is {}", secret);
 	
 	match guess.cmp(&secret) {
 	// returns an answer string based on comparison with guess
-	Ordering::Less =>	{String::from("Too small!")},
-	Ordering::Equal =>	{String::from("You win!")},
-	Ordering::Greater =>	{String::from("Too big!")},
+	Ordering::Less =>	{"Too small!"},
+	Ordering::Equal =>	{"You win!"},
+	Ordering::Greater =>	{"Too big!"},
 	}
 }
 
@@ -36,7 +38,7 @@ fn main() {
 		let result = random_comparison_win(guess_int, secret_number);
 		println!("{}", result);
 
-		if result == String::from("You win!") {
+		if result == "You win!" {
 		break;		
 		}
 	}
