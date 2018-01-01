@@ -19,7 +19,7 @@ pub fn random_comparison_win(guess: u32, secret: u32) -> &'static str {
 }
 
 fn main() {
-	println!("Guess the number between 1 and 100!");
+	println!("Guess the number between 1 and 100! Type 'quit' to leave the game.");
 	let secret_number = rand::thread_rng().gen_range(1, 101);
 	let mut n_guesses: u32 = 0;
 	
@@ -32,7 +32,10 @@ fn main() {
 			.expect("Oh no! Failed to read input!");  
 		// populate it with whatever the user types
 
-		if guess == String::from("quit") {break;};
+		if guess.trim() == String::from("quit") {
+			println!("Goodbye!");
+			break;
+		};
 	    
 		let guess_int: u32 = match guess.trim().parse() {
 			Ok(num) => {n_guesses += 1; num},
