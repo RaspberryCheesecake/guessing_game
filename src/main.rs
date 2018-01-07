@@ -4,13 +4,11 @@ use std::io;
 use rand::Rng;
 use std::cmp::Ordering;
 
-const YAY: &'static str = "You WIN!!";
+const YAY: &'static str = "Correct!";
 
-pub fn random_comparison_win(guess: u32, secret: u32) -> &'static str {
-	//println!("You guessed: {}", guess);
-	//println!("The secret number is {}", secret);
+pub fn random_comparison_win(guess: u32, answer: u32) -> &'static str {
 	
-	match guess.cmp(&secret) {
+	match guess.cmp(&answer) {
 	// returns an answer string based on comparison with guess
 	Ordering::Less =>	{"Too small!"},
 	Ordering::Equal =>	{YAY},
@@ -19,12 +17,14 @@ pub fn random_comparison_win(guess: u32, secret: u32) -> &'static str {
 }
 
 fn main() {
-	println!("Guess the number between 1 and 100! Type 'quit' to leave the game.");
-	let secret_number = rand::thread_rng().gen_range(1, 101);
+	println!("Test your multiplication skills! Type 'quit' to leave the game.");
 	let mut n_guesses: u32 = 0;
 	
 	loop {
-		println!("Please input your guess:");
+		let int_1: u32 = rand::thread_rng().gen_range(2, 13);
+		let int_2: u32 = rand::thread_rng().gen_range(2, 13);
+		println!("What is {} times {}?", int_1, int_2);
+		println!("Please input your answer:");
 		
 		let mut guess = String::new();  //Make an empty string to hold guesses
 
@@ -44,11 +44,11 @@ fn main() {
 		}; 
 		// coerce to unsigned 32 bit integer, if you can
 
-		let result = random_comparison_win(guess_int, secret_number);
+		let result = random_comparison_win(guess_int, int_1*int_2);
 		println!("{}", result);
 
-		if result == YAY {
-		println!("It took you {} guesses!", n_guesses);
+		if result != YAY {
+		println!("You lose! Your record is {} successes!", n_guesses);
 		break;		
 		}
 	}
